@@ -26,50 +26,43 @@ file = open("2016day2test.txt","r")
 startb = file.read()
 testlist = startb.split("\n")
 
-moves = {}
-nudge = {'U':-3, 'D':3, 'L':-1, 'R':1}
-for a in range(1,10):
-    for step in ['U','D','L','R']:
-        moves[(step,a)] = a + nudge[step]
-for a in moves:
-    if moves[a]>9:
-        moves[a] = a[1]
-    if moves[a] < 0 :
-        moves[a] = a[1]
-        
-
-
-def U(value):
-    return [max(value[0]-1,0),value[1]]
-
-def L(value):
-    return [value[0],max(value[1]-1,0)]
-    
-def D(value):
-    return [min(value[0]+1,2),value[1]]
-    
-def R(value):
-    return [value[0],min(value[1]+2,0)]
-
-
-
-
-        
 
 def codelookup(inputlist):
-    keypad = {}
-    addresses = [(x,y) for x in range(0,3) for y in range(0,3)]
-    for a in addresses:
-#        print(a)
-        keypad[a] = a[0]*3+a[1]+1
-    start = [1,1]
+#    keys = np.matrix('1 2 3;4 5 6;7 8 9')
+    pos = np.matrix('1 1')
+    movedict = {'U' : np.matrix('0 -1'),
+                'D' : np.matrix('0 1'),
+                'L' : np.matrix('-1 0'),
+                'R' : np.matrix('1 0')}
     outcode = ''
     for row in inputlist:
         for char in row:
-            print(char,start)
-            exec('start = '+char+'('+str(start)+')')            
-            print(start)
-#        start = exec(instructions)
-        print(start)
-#        outcode += str(keypad[tuple(start)])
+            pos = pos + movedict[char]
+            x = min(2,max(0,pos.item(0)))
+            y = min(2,max(0,pos.item(1)))
+#            print(pos,x,y,char)
+            pos = np.matrix(str(x)+' '+str(y))
+        outcode += str(pos.item(1)*3+pos.item(0)+1)
+#        print(outcode)
     return outcode
+
+def codelookup2(inputlist):
+    keys = '  1   234 56789 ABC   D  '
+    pos = np.matrix('-2 0')
+    movedict = {'U' : np.matrix('0 -1'),
+                'D' : np.matrix('0 1'),
+                'L' : np.matrix('-1 0'),
+                'R' : np.matrix('1 0')}
+    outcode = ''
+    for row in inputlist:
+        for char in row:
+            newpos = pos + movedict[char]
+            x = newpos.item(0)
+            y = newpos.item(1)
+            print(pos,x,y,char)
+            if abs(x)+abs(y) <= 2 :
+                pos = np.matrix(str(x)+' '+str(y))
+        outcode += (keys[pos.item(1)*5+pos.item(0)+12])
+        print(outcode)
+    return outcode
+
