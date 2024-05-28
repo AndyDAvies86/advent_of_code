@@ -24,7 +24,7 @@ testlist = startb.split("\n")
 #%%
 
 def parse(inputlist):
-    pass
+   pass
 
 
 #%%        

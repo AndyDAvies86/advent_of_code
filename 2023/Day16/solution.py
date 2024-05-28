@@ -27,10 +27,12 @@ def parse(inputlist):
     pass
 
 
+
 #%%        
 
 def part1(inputlist):
-    pass
+    pos = [0,0]
+    
 
 
 

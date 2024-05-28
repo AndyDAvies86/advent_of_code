@@ -60,7 +60,7 @@ def knothash(listlength,inputlist):
 #    print(numlist,pos)
     return numlist[pos%listlength]*numlist[(pos+1)%listlength]
 
-" Part 2
+
 
 
 
