@@ -46,18 +46,18 @@ def op4(inputlist,p1,mem,pos):
     pos=pos+2
     return inputlist,mem,pos
 
-def op5(inputlist,p1,mem,pos):
+def op5(inputlist,p1,p2,mem,pos):
     if inputlist[p1] != 0:
-        pos = inputlist[p1]
+        pos = inputlist[p2]
     else: 
-        pos = pos+2
+        pos = pos+3
     return inputlist,mem,pos        
 
-def op6(inputlist,p1,mem,pos):
+def op6(inputlist,p1,p2,mem,pos):
     if inputlist[p1] == 0:
-        pos = inputlist[p1]
+        pos = inputlist[p2]
     else: 
-        pos = pos+2
+        pos = pos+3
     return inputlist,mem,pos
 
 def op7(inputlist,p1,p2,p3,mem,pos):
@@ -86,9 +86,9 @@ def oprun(inputlist,oc,p1,p2,p3,mem,pos):
     if oc==4:
         return op4(inputlist,p1,mem,pos)
     if oc==5:
-        return op5(inputlist,p1,mem,pos)
+        return op5(inputlist,p1,p2,mem,pos)
     if oc==6:
-        return op6(inputlist,p1,mem,pos)
+        return op6(inputlist,p1,p2,mem,pos)
     if oc == 7:
         return op7(inputlist,p1,p2,p3,mem,pos)
     if oc==8:
@@ -103,7 +103,7 @@ def intcode(program,mem):
         if program[pos] == 99:
             # print(program)
             return mem
-        # print(program[pos:pos+4])
+        # print(pos,program[pos:pos+4])
         oc = program[pos]%100
         par1 = (program[pos]//100)%10
         par2 = (program[pos]//1000)%10
@@ -124,24 +124,22 @@ def intcode(program,mem):
         else:
             p3 = program[min(l-1,pos+3)]
         # print("p3: ",p3)
-        print("pars",oc,par1,par2,par3,p1,p2,p3)
+        # print("pars",pos,oc,par1,par2,par3,p1,p2,p3)
         program,mem,pos = oprun(program,oc,p1,p2,p3,mem,pos)
-        # if oc ==4:
-        #     return mem
-        # print(program)
+
 
 
 
 #%%        
 
 def part1(inputlist):
-    program = parse(startlist)
+    program = parse(inputlist)
     return intcode(program,1)
 
 
 
 def part2(inputlist):
-    program = parse(startlist)
+    program = parse(inputlist)
     return intcode(program,5)
 
 #%%
