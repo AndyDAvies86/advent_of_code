@@ -22,7 +22,6 @@ startb = file.read()
 testlist = startb.split(",")
 
 #%%
-
 class intcode:
     def __init__(self,program,inputdata):
         self.program=program + [0 for x in range(0,10000)]
@@ -123,24 +122,40 @@ class intcode:
         self.opdict[self.oc]()
 
 
+
 #%%
 
 def parse(inputlist):
     return[int(x) for x in inputlist]
 
 
+
 #%%        
 
 def part1(inputlist):
-    program = parse(startlist)
-    # print(program)
-    return intcode(program,1)[0]
+    program = parse(inputlist)
+    int_machine=intcode(program,[1])
+    # a=0
+    oc_list=[]
+    while int_machine.oc != 99:
+        # a=a+1
+        int_machine.paramters()
+        # print(a,int_machine.pos,int_machine.program[int_machine.pos:int_machine.pos+4],int_machine.program[1015],int_machine.program[236:238],[int_machine.p1,int_machine.p2,int_machine.p3],int_machine.relbase)
+        int_machine.oprun()
+        oc_list.append(int_machine.oc)
+    return int_machine.mem
 
 
 
 def part2(inputlist):
-    program = parse(startlist)
-    # print(program)
-    return intcode(program,2)[0]
+    program = parse(inputlist)
+    int_machine=intcode(program,[2])
+    # a=0
+    while int_machine.oc != 99:
+        int_machine.paramters()
+        int_machine.oprun()
+        # a=a+1
+        # print(a)
+    return int_machine.mem
 
 #%%
