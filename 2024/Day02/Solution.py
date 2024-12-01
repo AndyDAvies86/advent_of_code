@@ -28,4 +28,15 @@ test2list = startc.split("\n")
 
 #%%
 
+def parselist(inputlist):
+    pass
+
+#%%
+
+def part1(inputlist):
+    pass
+#%%
+
+def part2(inputlist):
+    pass
 #%%
