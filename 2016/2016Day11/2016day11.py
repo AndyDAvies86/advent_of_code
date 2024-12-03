@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec  4 22:46:13 2020
-
-@author: Andy
-"""
-
+#%%
 
 
 import pandas as pd
@@ -27,6 +21,8 @@ startlist = start.split("\n")
 file = open("2016day11test.txt","r")
 startb = file.read()
 testlist = startb.split("\n")
+
+#%%
 
 def begin(inputlist):
     clean = []
