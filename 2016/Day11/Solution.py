@@ -26,11 +26,20 @@ testlist = startb.split("\n")
 #%%
 
 def parselist(inputlist):
-    [[y.split(' a ')[-1].replace('.','') for y in x.split(',')] for x in inputlist]
+    prekit = [x.replace(' a ','').replace(' and',',').replace(',,',',')[x.find('contains') + 8:] for x in inputlist][:3]
+    kit = [[''.join([a[0] for a in x.split(' ')]) for x in y.split(',')] for y in prekit]
+    # kit = [[''.join([z[0] for z in y.split(' a ')[-1].replace('.','').split(' ')]) for y in x.split(',')] for x in inputlist[:-1]]
+    # kitdict = {}
+    # for ii in range(0,len(kit)):
+    print(kit[0])
+    print(kit[1])
+    print(kit[2])
+    return kit
 #%%
 
 def part1(inputlist):
-    pass
+    E = 0
+    
 #%%
 
 def part2(inputlist):
