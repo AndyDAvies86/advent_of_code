@@ -26,7 +26,8 @@ testlist = startb.split("\n")
 NESW = [(1,0),(0,1),(-1,0),(0,-1)]
 
 #%%
-@functools.cache
+
+
 def parselist(inputlist):
     mapdict = {}
     for ii in range(0,len(inputlist)+2):
@@ -38,7 +39,7 @@ def parselist(inputlist):
             mapdict[(ii+1,jj+1)] = inputlist[ii][jj]
     return mapdict
 #%%
-@functools.cache
+
 def addpoint(mapdict,shapes,pos):
     for d in NESW:
         check = (pos[0]+d[0],pos[1]+d[1])
@@ -48,7 +49,6 @@ def addpoint(mapdict,shapes,pos):
                 return shapes
     return shapes+[[pos]]
 
-@functools.cache
 def perimeter(shape):
     per = 4*len(shape)
     for pos in shape:
@@ -58,7 +58,6 @@ def perimeter(shape):
                 per = per-1
     return per
 
-@functools.cache
 def joins(shapes,mapdict):
     for ii in range(0,len(shapes)):
         for jj in range(ii+1,len(shapes)):
@@ -70,7 +69,6 @@ def joins(shapes,mapdict):
                             return shapes[:ii]+[shapes[ii]+shapes[jj]]+shapes[ii+1:jj]+shapes[jj+1:]
     return shapes
 
-@functools.cache
 def part1(inputlist):
     mapdict = parselist(inputlist)
     shapes = []
@@ -99,8 +97,7 @@ def part1(inputlist):
 
 #%%
 
-@functools.cache
-def getshapes(inputlist)
+def getshapes(inputlist):
     mapdict = parselist(inputlist)
     shapes = []
     for ii in range(1,len(inputlist)+1):
@@ -116,8 +113,21 @@ def getshapes(inputlist)
         if len(newshapes) == len(shapes):
             go = False
         shapes = copy.deepcopy(newshapes)
+    return shapes
 
-@functools.cache
+def addside(pos,d,mapdict):
+    for d in NESW:
+        check = (pos[0]+d[0],pos[1]+d[1])
+
 def part2(inputlist):
-    pass
+    mapdict = parselist(inputlist)
+    shapes = getshapes(inputlist)
+    sides = []
+    area = [len(x) for x in shapes]
+    for shape in shapes:
+        pass
+        
+    return sum([area[x]*sides[x] for x in range(0,len(area))])
+
+
 #%%
