@@ -120,7 +120,7 @@ def newshape(mapdict):
 
 # def shapes()
 
-def part11(inputlist):
+def part1(inputlist):
     c = len(inputlist)*len(inputlist[0])
     # print(c)
     mapdict = parselist(inputlist)
@@ -140,42 +140,33 @@ def part11(inputlist):
 #%%
 
 def corners(pos,shape):
-    check = np.zeros((3,3))
-    for ii in range(0,3):
-        for jj in range(0,3):
-            if (pos[0]-1+ii,pos[1]-1+jj) in shape:
+    check = np.zeros((2,2))
+    for ii in range(0,2):
+        for jj in range(0,2):
+            if (pos[0]+ii,pos[1]+jj) in shape:
                 check[ii][jj] = 1
-    if np.sum(check) == 1:
-        return 4
-    if np.sum(check) == 9:
+    if np.sum(check) in (0,4):
         return 0
-    if np.sum(np.sum(check,axis=0)%3) == 0:
-        return 0
-    if np.sum(np.sum(check,axis=1)%3) == 0:
-        return 0
-    return check
-
-def sides(shape):
+    elif np.sum(check) in (1,3):
+        return 1
+    elif check[0][0] == check[1][1]:
+        return 2
+    return 0
+def sidecount(shape):
+    # print(shape)
     top = min([x[0] for x in shape])
     bottom = max([x[0] for x in shape])
     left = min([x[1] for x in shape])
     right = max([x[1] for x in shape])
-    edges = (set(),set(),set(),set())
-    sides = 0
-    for d in range(0,4):
-        edge = set()
-        if NESW[d][0] != 0:
-            a = 0
-        else:
-            a = 1
-        for ii in range(top,bottom+1):
-            for jj in range(left,right+1):
-                c_pos = (ii+NESW[d][0],jj+NESW[d][1])
-                # print((ii,jj),c_pos,d)
-                if (ii,jj) in shape and c_pos not in shape:
-                    edge.add((ii,jj)[a])
-        print(d,a,NESW[d],edge)
-    return edges
+    # edges = (set(),set(),set(),set())
+    shapeside = 0
+    for ii in range(top-1,bottom+1):
+        for jj in range(left-1,right+1):
+            pos = [ii,jj]
+            corn = corners(pos,shape)
+            # print(pos,corn)
+            shapeside = shapeside+corn
+    return shapeside
 
 def part2(inputlist):
     c = len(inputlist)*len(inputlist[0])
@@ -192,8 +183,9 @@ def part2(inputlist):
         # print(len(shapes),sum([len(x) for x in shapes]),mapdict[shape[0]],len(shape),perimeter(shape))
     area = [len(x) for x in shapes]
 
-    sides = [perimeter(x) for x in shapes]
-
+    sides = [sidecount(x) for x in shapes]
+    print(len(area),min(area),area)
+    print(len(sides),min(sides),sides)
     return sum([area[x]*sides[x] for x in range(0,len(area))])
 
 
