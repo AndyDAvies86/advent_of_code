@@ -22,6 +22,10 @@ file = open("inputtest.txt","r")
 startb = file.read()
 testlist = startb.split("\n")
 
+file = open("inputtest2.txt","r")
+startc = file.read()
+testlist2 = startc.split("\n")
+
 
 #%%
 
@@ -114,10 +118,10 @@ def checkbox(inputlist,a_test):
 
 
 def checkboxes(inputlist,a_start,t_out,ii):
-    for a_test in range(a_start,a_start+8**(ii+1),8**ii):
+    for a_test in range(a_start,a_start+8**(ii+1)):
         checklist = checkbox(inputlist,a_test)
-        print('ts',a_test,checklist,t_out,t_out[:ii+1])
-        if t_out[:ii+1] == checklist[:ii+1]:
+        # print('ts',a_test,checklist,t_out,t_out[-ii-1:])
+        if t_out[-ii-1:] == checklist[:ii+1]:
             return[int(x) for x in oct(a_test)[2:]]
     short = [int(x) for x in oct(a_start)[2:]]
     k = ii+1-len(short)
@@ -130,10 +134,10 @@ def part2(inputlist):
     eights = [0]
     # outlist = []
     for ii in range(0,len(t_out)):
-        a_start = sum([(8**(jj))*eights[-jj-1] for jj in range(0,len(eights))])
+        a_start = sum([(8**(jj+1))*eights[-jj-1] for jj in range(0,len(eights))])
         # print('st',a_start,ii)
         eights=checkboxes(inputlist,a_start,t_out,ii)
-        print('eights',a_start,eights)
+        # print('eights',a_start,eights)
     return sum([(8**(jj))*eights[-jj-1] for jj in range(0,len(eights))])
 
 
