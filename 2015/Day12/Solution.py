@@ -31,7 +31,7 @@ starti = '[-1,{"a":1}]'
 #%%
 def remove_non_num(inputstring):
     # outstring = re.sub("[^1-9,-]","",inputstring)
-    midstring = re.sub("[\{\}\[\]\"a-z]","",inputstring)
+    midstring = re.sub("[\{\}\[\]\"\'a-z]","",inputstring)
     outstring = re.sub(":",",",midstring)
     return outstring
 
@@ -105,17 +105,9 @@ def part1(inputlist):
 # %%
 
 def part2(inputlist):
-    midstring = remove_red_object(inputlist)
-    nextstring = remove_red(midstring)
-    total = part1(nextstring)
-    return total
+    print(inputlist)
+    newstring = str(json.loads(inputlist, object_hook=hook)).replace(',{}','').replace('{},','').replace('\'','\"').replace(' ','')
+    print(newstring)
+    return part1(newstring)
 # %%
 
-
-def hook(obj):
-  if "red" in obj.values(): return {}
-  else: return obj
-stuff = str(json.loads(start, object_hook=hook))
-print("Sum of all numbers 2:", sum(map(int, re.findall("-?[0-9]+", stuff))))
-
-#%%

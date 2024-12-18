@@ -8,7 +8,6 @@ from collections import deque
 import itertools as it
 import copy
 import networkx as nx
-import matplotlib.pyplot as plt
 
 #%%
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
@@ -28,7 +27,27 @@ testlist = startb.split("\n")
 #%%
 
 def parselist(inputlist):
-    pass
+    H = []
+    G = nx.DiGraph()
+
+    for row in inputlist:
+        conn = row.split(' -> ')
+        out = conn[1]
+        inp = conn[0].split(' ')
+        H.append([inp,out])
+        print(inp,out)
+        if len(inp) == 1:
+            try:   
+                inpint = int(inp[0])
+                print(inpint)
+                G.addnode(out,value=inpint)
+            except:
+                G.add_edge(inp[0],out)
+
+
+
+    return G
+
 #%%
 
 def part1(inputlist):

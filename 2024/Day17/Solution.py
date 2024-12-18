@@ -18,6 +18,10 @@ file = open("inputfile.txt","r")
 start = file.read()
 startlist = start.split("\n")
 
+file = open("inputsi.txt","r")
+si = file.read()
+silist = si.split("\n")
+
 file = open("inputtest.txt","r")
 startb = file.read()
 testlist = startb.split("\n")
@@ -69,7 +73,9 @@ class comp:
     
 #%%
 
-# 2,4,1,1,7,5,1,5,4,3,0,3,5,5,3,0
+#Me 2,4,1,1,7,5,1,5,4,3,0,3,5,5,3,0
+#Si 2,4,1,2,7,5,1,3,4,3,5,5,0,3,3,0
+#SI pct 4532306073267275
 
 def part1(inputlist):
     box = comp(inputlist)
