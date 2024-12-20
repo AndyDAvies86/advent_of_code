@@ -45,12 +45,23 @@ def parselist(inputlist):
 def part1(inputlist):
     h = len(inputlist)
     w = len(inputlist)
+    d = 'NESWN'
     walls,s,e = parselist(inputlist)
-    G = nx.grid_2d_graph(w,h)
+    G = nx.Graph()
+    node_list = [(x,y,z) for x in range(0,w) for y in range(0,h) for z in ('N','E','S','W')]
+    G.add_nodes_from([(x,y,z) for x in range(0,w) for y in range(0,h) for z in ('N','E','S','W')])
+    turn_list = [((x[0],x[1],d[z]),(x[0],x[1],d[z+1])) for x in node_list for z in range(0,4)]
+    edge_list = [(x,y) for x in node_list for y in node_list if (x[2] == y[2] and (abs(x[0]-y[0])+abs(x[1]-y[1])==1))]
+    G.add_edges_from(edge_list,wt = 1000)
+    G.add_edges_from(turn_list,weight=1)
+    G.add_node(e)
+    end_edges = [((e[0],e[1],x),e) for x in ('N','E','S','W')]
+    G.add_edges_from(end_edges,weight=0)
     G.remove_nodes_from(walls)
-    paths = nx.all_simple_paths(G,s,e)
-    print(len(list(paths)))
-    return paths
+    return nx.shortest_path(G,(s[0],s[1],'N'),e,'weight')
+    # paths = nx.all_simple_paths(G,s,e)
+    # print(len(list(paths)))
+    # return paths
 #%%
 
 def part2(inputlist):

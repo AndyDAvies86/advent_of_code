@@ -9,6 +9,7 @@ import itertools as it
 import copy
 import networkx as nx
 import matplotlib.pyplot as plt
+from functools import cache
 
 #%%
 alphabet = 'abcdefghijklmnopqrstuvwxyz'

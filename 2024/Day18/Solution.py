@@ -50,9 +50,10 @@ def drawgraph(G):
 def part1(inputlist,m,r):
     G = nx.grid_2d_graph(m,m)
     rems = parselist(inputlist)
-    for n in rems[0:r]:
-        if n in G:
-            G.remove_node(n)
+    G.remove_nodes_from(rems[:r])
+    # for n in rems[0:r]:
+    #     if n in G:
+    #         G.remove_node(n)
     # drawgraph(G)
     # G.remove_node((1,0))
     # G.remove_node((0,1))
@@ -63,7 +64,8 @@ def part1(inputlist,m,r):
 def part2(inputlist,m):
     G = nx.grid_2d_graph(m,m)
     rems = parselist(inputlist)
-    for n in rems:
+    G.remove_nodes_from(rems[:1024])
+    for n in rems[1024:]:
         if n in G:
             G.remove_node(n)
             try:
