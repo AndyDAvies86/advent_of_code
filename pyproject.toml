@@ -1,0 +1,5 @@
+[project]
+name = "advent_of_code"
+version = "1.0.0"
+description = "Andy's AoC repo"
+requires-python = ">3.1"
