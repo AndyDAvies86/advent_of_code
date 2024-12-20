@@ -59,39 +59,21 @@ def walls_list(W,sp):
     remove_singles = []
     for wall in W:
         if len(list(W.neighbors(wall))) <= 2:
-            # if (wall[0]+1,wall[1]) in sp or (wall[0]-1,wall[1]) in sp or (wall[0],wall[1]+1) in sp or (wall[0],wall[1]-1) in sp:
-            if True:
-                remove_singles.append(wall)
+            remove_singles.append(wall)
     return remove_singles
 
-def new_short(walls,wall,h,w,s,e,t):
-    P = nx.grid_2d_graph(w,h)
-    walls = [wl for wl in walls if wl != wall]
-    P.remove_nodes_from(walls)
-    nshort = nx.shortest_path(P,s,e)
-    return len(nshort)-1
-
-# def try_short(wall,G,s,e,t):
-    # G.add
-
 def part1(inputlist):
-    saves = []
     sdict = {}
     paths,walls,s,e = parselist(inputlist)
     h = len(inputlist)
     w = len(inputlist[0])
     W = nx.grid_2d_graph(w,h)
     W.remove_nodes_from(paths+[s,e])
-    # drawgraph(W)
     G = nx.grid_2d_graph(w,h)
     G.remove_nodes_from(walls)
-    # drawgraph(G)
     sp = nx.shortest_path(G,s,e)
-    # print(sp)
     t = len(sp)-1
-    print('t',t)
     rem_walls = walls_list(W,sp)
-    print('w',len(rem_walls))
     for wall in rem_walls:
         neigh = [(wall[0]+1,wall[1]),(wall[0]-1,wall[1]),(wall[0],wall[1]+1),(wall[0],wall[1]-1)]
         nind = [sp.index(x) for x in neigh if x in sp]
@@ -99,17 +81,7 @@ def part1(inputlist):
             for y in nind:
                 if y > x:
                     sdict[(sp[x],sp[y])] = y-x-2
-    # return sorted(Counter(sdict.values()).items())
     return sum(v >= 100 for v in sdict.values())
-        # if len(nind) > 1:
-        #     saves.append(max(nind)-min(nind))
-        # if t-new_short(W,wlist,h,w,s,e,t) == 64:
-            # print(wlist)
-        # saves.append(t-new_short(W,wall,h,w,s,e,t))
-        # if len(saves) % 100 == 0:
-            # print(len(saves))
-    # return sorted(Counter(saves).items())
-    # return sum([x>=100 for x in saves])
 
 
 #%%
@@ -123,8 +95,10 @@ def part2(inputlist,maxdist,mcheat):
     sp = nx.shortest_path(G,s,e)
     print(len(sp)-1)
     score = 0
-    for ii in range(0,len(sp)-2):
-        for jj in range(ii+2,len(sp)):
+    if mcheat > len(sp):
+        return 0
+    for ii in range(0,len(sp)-mcheat):
+        for jj in range(ii+mcheat,len(sp)):
             md = abs(sp[ii][0]-sp[jj][0])+abs(sp[ii][1]-sp[jj][1])
             # print(sp[ii],sp[jj],md)
             if md <= maxdist and jj-ii>mcheat-2+md:
