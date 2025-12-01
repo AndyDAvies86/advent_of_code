@@ -1,2 +1,5 @@
 #ignore puzzle inputs
 *.txt
+simon.py
+cheat.py
+*.png
