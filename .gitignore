@@ -3,3 +3,4 @@
 simon.py
 cheat.py
 *.png
+*/__pycache__/*
